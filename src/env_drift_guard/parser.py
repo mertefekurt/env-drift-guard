@@ -6,6 +6,7 @@ from env_drift_guard.models import EnvEntry
 
 
 def parse_env_file(path: Path) -> tuple[dict[str, EnvEntry], tuple[str, ...]]:
+    """Parse dotenv-style assignments and return the final entry for each key."""
     entries: dict[str, EnvEntry] = {}
     duplicates: list[str] = []
 
@@ -45,6 +46,7 @@ def _parse_line(raw_line: str, line_number: int) -> EnvEntry | None:
 
 
 def _split_comment(value: str) -> tuple[str, str]:
+    """Split an inline comment without treating hashes inside quotes as comments."""
     quote: str | None = None
     for index, char in enumerate(value):
         if char in {"'", '"'}:
@@ -58,4 +60,3 @@ def _unquote(value: str) -> str:
     if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
         return value[1:-1]
     return value
-

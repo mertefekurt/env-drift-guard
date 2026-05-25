@@ -8,6 +8,7 @@ def analyze(
     env_entries: dict[str, EnvEntry],
     duplicate_keys: tuple[str, ...] = (),
 ) -> DriftReport:
+    """Compare expected and actual env entries and summarize configuration drift."""
     example_keys = set(example_entries)
     env_keys = set(env_entries)
 
@@ -27,4 +28,3 @@ def analyze(
         empty_required=empty_required,
         duplicate_keys=tuple(sorted(duplicate_keys)),
     )
-
