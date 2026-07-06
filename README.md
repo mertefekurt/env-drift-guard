@@ -1,40 +1,30 @@
-![Project Banner](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=180&section=header&text=env-drift-guard&fontSize=50&fontAlignY=38)
+<img src="assets/readme-cover.svg" alt="Env Drift Guard cover" width="100%" />
 
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+# Env Drift Guard
 
-# env-drift-guard
+Audit .env files against an example contract.
 
-`env-drift-guard` is a small CLI for catching configuration drift before it reaches production. It compares `.env` against `.env.example`, reports missing keys, unexpected keys, empty required values, and duplicate entries.
+![stack](https://img.shields.io/badge/stack-Python-be185d?style=flat-square) ![python](https://img.shields.io/badge/python-3.10-4b5563?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-2563eb?style=flat-square) ![tests](https://img.shields.io/badge/tests-pytest-16a34a?style=flat-square)
 
-![Terminal Output](https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=400&size=14&duration=4000&pause=1000&center=false&vCenter=false&multiline=true&width=600&height=200&lines=env-drift-guard+--example+.env.example+--env+.env;status+++++++++:+drift+found;missing++++++++:+STRIPE_SECRET_KEY;empty+required+:+DATABASE_URL)
+| Question | Answer |
+| --- | --- |
+| What is it? | A focused Python utility for environment drift. |
+| How does it run? | `env-drift-guard` |
+| Why keep it small? | Easier review, easier tests, fewer moving parts. |
 
-## Why it exists
-
-- `.env.example` often changes quietly during development.
-- CI usually fails late, after a missing secret breaks runtime code.
-- Teams need a simple report that is safe to print in logs.
-
-## Install
+## Command
 
 ```bash
-pip install .
+python -m pip install -e ".[dev]"
+env-drift-guard --help
+python -m env_drift_guard --help
 ```
 
-## Use
+## Verify
 
 ```bash
-env-drift-guard --example .env.example --env .env
-env-drift-guard --format json
+python -m pip install -e ".[dev]"
+ruff check .
+pytest
+python -m env_drift_guard --help
 ```
-
-Exit code is `0` when files match and `1` when drift is found.
-
-## Project layout
-
-- `src/env_drift_guard/` contains the parser, analyzer, renderer, and CLI.
-- `tests/` covers parsing edge cases and drift detection.
-
-## License
-
-MIT
